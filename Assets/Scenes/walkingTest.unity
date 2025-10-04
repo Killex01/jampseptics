@@ -454,6 +454,7 @@ GameObject:
   - component: {fileID: 1331677312}
   - component: {fileID: 1331677313}
   - component: {fileID: 1331677314}
+  - component: {fileID: 1331677315}
   m_Layer: 0
   m_Name: player
   m_TagString: Untagged
@@ -489,11 +490,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edca15e7cd62c5d4eb5b91436959cf1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movementSpeed: 5
   jumpHeight: 0.5
   jumpDuration: 0.5
-  maxScale: 4.85
-  minScale: 3.85
-  MouvementSpeed: 5000
+  maxScale: 1.2
+  minScale: 1
+  jumpableLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!50 &1331677314
 Rigidbody2D:
   serializedVersion: 4
@@ -521,6 +525,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &1331677315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1331677311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42e163667e73f604a8d7dd3eac17d3c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MouvementSpeed: 0
 --- !u!1 &1405569564
 GameObject:
   m_ObjectHideFlags: 0
