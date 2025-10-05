@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
         Dead
     }
 
-    private PlayerState currentState = PlayerState.Alive;
+    private static PlayerState currentState = PlayerState.Alive;
 
     private void Awake()
     {
@@ -54,7 +54,6 @@ public class PlayerController : MonoBehaviour
         HandleJumpInput();
         UpdateAnimations();
         HandleStateSwitch();
-
     }
 
     private void HandleStateSwitch()
@@ -65,15 +64,16 @@ public class PlayerController : MonoBehaviour
             {
                 SceneManager.LoadScene("deadState");
                 currentState = PlayerState.Dead;
+
             }
             else if (currentState == PlayerState.Dead)
             {
                 SceneManager.LoadScene("aliveState");
                 currentState = PlayerState.Alive;
+
             }
         }
     }
-
 
     private void HandleMovement()
     {
@@ -85,7 +85,6 @@ public class PlayerController : MonoBehaviour
         input.x = Input.GetAxisRaw("Horizontal");
         input.y = Input.GetAxisRaw("Vertical");
 
-        // Update last move direction only when there’s actual input
         if (input.sqrMagnitude > 0.01f)
             lastMoveDir = input.normalized;
 
@@ -96,7 +95,6 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(Dash());
         }
     }
-
 
     private void HandleJumpInput()
     {
@@ -121,8 +119,6 @@ public class PlayerController : MonoBehaviour
     private IEnumerator JumpEffect()
     {
         isJumping = true;
-
-        // Temporarily ignore collisions with jumpable platforms
         Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMaskToLayer(jumpableLayer), true);
 
         float half = jumpDuration / 2f;
@@ -154,13 +150,11 @@ public class PlayerController : MonoBehaviour
         sprite.localPosition = spriteStartPos;
         sprite.localScale = Vector3.one * minScale;
 
-        // Re-enable collisions
         Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMaskToLayer(jumpableLayer), false);
 
         isJumping = false;
     }
 
-    // Converts LayerMask to layer index (works if only one layer is selected)
     private int LayerMaskToLayer(LayerMask mask)
     {
         int layer = 0;
@@ -186,5 +180,4 @@ public class PlayerController : MonoBehaviour
 
         canDash = true;
     }
-
 }
