@@ -1,5 +1,6 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
@@ -18,6 +19,16 @@ public class PlayerController : MonoBehaviour
 
     public LayerMask jumpableLayer;
     private Collider2D playerCollider;
+
+    private bool canDash = true;
+    private bool isDashing;
+    private float dashingPower = 800f;
+    private float dashingTime = 0.2f;
+    private float dashingCooldown = 1f;
+    private Vector2 lastMoveDir = Vector2.right;
+
+
+
 
     private Vector2 input;
 
@@ -41,11 +52,26 @@ public class PlayerController : MonoBehaviour
 
     private void HandleMovement()
     {
+        if (isDashing)
+        {
+            return;
+        }
+
         input.x = Input.GetAxisRaw("Horizontal");
         input.y = Input.GetAxisRaw("Vertical");
 
+        // Update last move direction only when there’s actual input
+        if (input.sqrMagnitude > 0.01f)
+            lastMoveDir = input.normalized;
+
         rb.velocity = input.normalized * movementSpeed;
+
+        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
+        {
+            StartCoroutine(Dash());
+        }
     }
+
 
     private void HandleJumpInput()
     {
@@ -121,4 +147,19 @@ public class PlayerController : MonoBehaviour
         }
         return layer;
     }
+
+    private IEnumerator Dash()
+    {
+        canDash = false;
+        isDashing = true;
+        rb.velocity = lastMoveDir * dashingPower;
+
+        yield return new WaitForSeconds(dashingTime);
+
+        isDashing = false;
+        yield return new WaitForSeconds(dashingCooldown);
+
+        canDash = true;
+    }
+
 }

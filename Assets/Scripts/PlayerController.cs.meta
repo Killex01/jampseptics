@@ -3,7 +3,9 @@ guid: edca15e7cd62c5d4eb5b91436959cf1a
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - dashSparklePrefab: {fileID: 1427208092306336133, guid: ecaf94a362af93b4cb6d69430ed91829, type: 3}
+  - ghostTrailPrefab: {fileID: 3471341968989490869, guid: f19a05d9807f88d429a10520d31a9373, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
