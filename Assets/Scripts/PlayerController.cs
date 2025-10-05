@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -26,11 +27,15 @@ public class PlayerController : MonoBehaviour
     private float dashingTime = 0.2f;
     private float dashingCooldown = 1f;
     private Vector2 lastMoveDir = Vector2.right;
-
-
-
-
     private Vector2 input;
+
+    private enum PlayerState
+    {
+        Alive,
+        Dead
+    }
+
+    private PlayerState currentState = PlayerState.Alive;
 
     private void Awake()
     {
@@ -48,7 +53,27 @@ public class PlayerController : MonoBehaviour
         HandleMovement();
         HandleJumpInput();
         UpdateAnimations();
+        HandleStateSwitch();
+
     }
+
+    private void HandleStateSwitch()
+    {
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            if (currentState == PlayerState.Alive)
+            {
+                SceneManager.LoadScene("deadState");
+                currentState = PlayerState.Dead;
+            }
+            else if (currentState == PlayerState.Dead)
+            {
+                SceneManager.LoadScene("aliveState");
+                currentState = PlayerState.Alive;
+            }
+        }
+    }
+
 
     private void HandleMovement()
     {
@@ -66,7 +91,7 @@ public class PlayerController : MonoBehaviour
 
         rb.velocity = input.normalized * movementSpeed;
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash && currentState != PlayerState.Alive)
         {
             StartCoroutine(Dash());
         }
