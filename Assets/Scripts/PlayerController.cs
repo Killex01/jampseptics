@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -28,6 +29,19 @@ public class PlayerController : MonoBehaviour
     private float dashingCooldown = 1f;
     private Vector2 lastMoveDir = Vector2.right;
     private Vector2 input;
+    // key interaction
+    public bool hasKey = false;
+    public bool nearKey = false;
+    [SerializeField] private GameObject key;
+
+    //Door interactions
+    public bool lockedDoor = true;
+    public bool nearDoor = false;
+    [SerializeField] private GameObject[] door = new GameObject[2];
+    [SerializeField] private GameObject doorLock;
+    [SerializeField] private GameObject doorblock;
+
+
 
     //for storing spawn position for ghost collision reset
     private Vector3 spawnPosition;
@@ -39,11 +53,17 @@ public class PlayerController : MonoBehaviour
     }
 
     private static PlayerState currentState = PlayerState.Alive;
-
+    void Start()
+    {
+        door[0].name = "closedDoor";
+        door[1].name = "openDoor";
+        door[0].SetActive(true);
+        door[1].SetActive(false);
+    }
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        playerCollider = GetComponent<Collider2D>();
+        playerCollider = GetComponent<Collider2D>(); 
         sprite = transform.Find("sprite");
         if (sprite == null)
             Debug.LogError("No child called 'sprite' found under player!");
@@ -67,6 +87,8 @@ public class PlayerController : MonoBehaviour
         HandleJumpInput();
         UpdateAnimations();
         HandleStateSwitch();
+        PickUpKey();
+        UnlockDoor();
     }
 
     private void HandleStateSwitch()
@@ -193,4 +215,76 @@ public class PlayerController : MonoBehaviour
 
         canDash = true;
     }
+
+    private void PickUpKey()
+    {
+        if (Input.GetKeyDown(KeyCode.E)) // Press E to pick up key
+        {
+            if (nearKey == true && !hasKey) // Check if player is near the key and doesn't already have it
+            {
+                hasKey = true;
+                key.SetActive(false); // Hide the key object in the scene
+                Debug.Log("Key picked up!");
+            }
+            else if (!nearKey)
+            {
+                Debug.Log("No key nearby to pick up.");
+            }
+            else if (hasKey)
+            {
+                Debug.Log("You already have the key.");
+            }
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Key")
+        {
+            nearKey = true;
+            Debug.Log("near the key!");
+        }
+        if (other.gameObject.tag == "Lock")
+        {
+            nearDoor = true;
+            Debug.Log("near the door!");
+        }
+    }
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Key")
+        {
+            nearKey = false;
+            Debug.Log("no key!");
+        }
+        if (other.gameObject.tag == "Lock")
+        {
+            nearDoor = false;
+            Debug.Log("left the lock.");
+        }
+    }
+
+    private void UnlockDoor()
+    {
+        if (Input.GetKeyDown(KeyCode.E)) // Press E to pick up key
+        {
+            if (nearDoor == true ) // Check if player is near the key and doesn't already have it
+            {
+               if (hasKey && lockedDoor)
+                {
+                    lockedDoor = false;
+                    door[0].SetActive(false);
+                    door[1].SetActive(true);
+                    doorLock.SetActive(false);
+                    doorblock.SetActive(false);
+                    Debug.Log("Door unlocked!");
+                }
+                else if (!hasKey && lockedDoor)
+                {
+                    Debug.Log("You need a key to unlock the door.");
+                }
+            }
+        }
+    }
 }
+
