@@ -29,6 +29,9 @@ public class PlayerController : MonoBehaviour
     private Vector2 lastMoveDir = Vector2.right;
     private Vector2 input;
 
+    //for storing spawn position for ghost collision reset
+    private Vector3 spawnPosition;
+
     private enum PlayerState
     {
         Alive,
@@ -46,6 +49,16 @@ public class PlayerController : MonoBehaviour
             Debug.LogError("No child called 'sprite' found under player!");
         anim = GetComponent<Animator>();
         spriteStartPos = sprite.localPosition;
+
+        //stores the spawn position at level start
+        spawnPosition = transform.position;
+    }
+
+    //reset player to spawn position
+    public void ResetToSpawn()
+    {
+        rb.velocity = Vector2.zero;
+        transform.position = spawnPosition;
     }
 
     private void Update()
