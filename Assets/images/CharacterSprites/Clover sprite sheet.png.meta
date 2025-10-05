@@ -97,27 +97,6 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Clover_Front
-      rect:
-        serializedVersion: 2
-        x: 710
-        y: 0
-        width: 264
-        height: 400
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 4, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c12a2e020faa2b1488b62ebf78bad835
-      internalID: 1385203091
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: Clover_right
       rect:
         serializedVersion: 2
@@ -142,9 +121,9 @@ TextureImporter:
       name: Clover_Back
       rect:
         serializedVersion: 2
-        x: 212
+        x: 215
         y: 0
-        width: 292
+        width: 285
         height: 400
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -163,9 +142,9 @@ TextureImporter:
       name: Clover_Left
       rect:
         serializedVersion: 2
-        x: 503
+        x: 500
         y: 0
-        width: 207
+        width: 214
         height: 400
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -176,6 +155,27 @@ TextureImporter:
       bones: []
       spriteID: 95cb4441a6f5a184ab007deb1c6f1e7a
       internalID: 57158788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Clover sprite sheet_0
+      rect:
+        serializedVersion: 2
+        x: 715
+        y: 0
+        width: 261
+        height: 400
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e736756ed142cb46b048bf5d34d93d2
+      internalID: 57938876
       vertices: []
       indices: 
       edges: []
@@ -191,6 +191,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      Clover sprite sheet_0: 57938876
       Clover_Back: -724669130
       Clover_Front: 1385203091
       Clover_Left: 57158788
