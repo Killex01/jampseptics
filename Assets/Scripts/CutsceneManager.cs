@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class CutsceneManager : MonoBehaviour
 {
@@ -65,8 +66,9 @@ public class CutsceneManager : MonoBehaviour
 			else
 			{
 				// End cutscene: hide black screen and all texts
+				SceneManager.LoadScene("aliveState");
 				blackScreen.gameObject.SetActive(false);
-				cutsceneActive = false;
+				cutsceneActive = false;				
 			}
 		}
 	}
