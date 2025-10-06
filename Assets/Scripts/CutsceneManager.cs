@@ -1,11 +1,13 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class CutsceneManager : MonoBehaviour
 {
 	[Header("Cutscene Components")]
 	public AudioSource voiceOverSource;
+	public AudioSource music;
 	public Image blackScreen;
 
 	[Header("Intro Texts (Assign in Inspector)")]
@@ -29,7 +31,10 @@ public class CutsceneManager : MonoBehaviour
 		if (introTexts.Length > 0)
 		{
 			introTexts[0].gameObject.SetActive(true);
-			Debug.Log("First cutscene text enabled: " + introTexts[0].name);
+			voiceOverSource.gameObject.SetActive(true);
+			music.gameObject.SetActive(true);
+
+            Debug.Log("First cutscene text enabled: " + introTexts[0].name);
 		}
 		else
 		{
@@ -62,12 +67,13 @@ public class CutsceneManager : MonoBehaviour
 				// if (voiceOverSource != null && voiceOverTimings.Length > currentIndex)
 				//     voiceOverSource.time = voiceOverTimings[currentIndex];
 			}
-			else
-			{
-				// End cutscene: hide black screen and all texts
-				blackScreen.gameObject.SetActive(false);
-				cutsceneActive = false;
-			}
-		}
+            else
+            {
+                // End cutscene: hide black screen and all texts
+                SceneManager.LoadScene("aliveState");
+                blackScreen.gameObject.SetActive(false);
+                cutsceneActive = false;
+            }
+        }
 	}
 }

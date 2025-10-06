@@ -6,12 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/cutscenes.unity
+    guid: 1c0604f3de2d963459903625cd2cd042
+  - enabled: 1
     path: Assets/Scenes/aliveState.unity
     guid: 00c5d1807030db446ae22667cf31e087
   - enabled: 1
     path: Assets/Scenes/deadState.unity
     guid: 75c39825ac8c307499e81f7f8517b813
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/walkingTest.unity
     guid: b0cf06b738c7b9d4a8a3da99fe56defa
   m_configObjects: {}
